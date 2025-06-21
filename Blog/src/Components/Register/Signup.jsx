@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import axios from 'axios'
 
 function Signup() {
   const[name,setName]=useState()
@@ -7,18 +8,12 @@ function Signup() {
   const[mob,setMob]=useState()
   const[gender,setGender]=useState()
   const[pwd,setPwd]=useState()
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault()
-    console.log(name)
-    console.log(typeof name)
-    console.log(email)
-    console.log(typeof email)
-    console.log(mob)
-    console.log(typeof mob)
-    console.log(gender)
-    console.log(typeof gender)
-    console.log(pwd)
-    console.log(typeof pwd)
+    const res=await axios.post("http://127.0.0.1:8000/signup",{'name':name,'email':email,'mob':mob,'gender':gender,'pwd':pwd})
+    if(res.status==200){
+      console.log('Success')
+    }
   }
 
   return (
@@ -85,7 +80,7 @@ function Signup() {
             required/>
           </div>
 
-          <button className="block mx-auto bg-[#554fc9] px-3 py-1 text-white rounded text-xl font-mono">
+          <button className="block mx-auto bg-[#554fc9] px-3 py-1 text-white rounded text-xl font-mono cursor-pointer">
             Submit
           </button>
         </form>
