@@ -1,15 +1,25 @@
 import React from 'react'
 import { useState } from 'react'
+import { NavLink } from 'react-router'
+import axios from 'axios'
 
 function Login() {
     const[email,setEmail]=useState()
     const[pwd,setPwd]=useState()
-    const handleSubmit=(e)=>{
+    const [error, setError] = useState('')
+    const handleSubmit=async(e)=>{
       e.preventDefault()
-      console.log(email)
-      console.log(typeof email)
-      console.log(pwd)
-      console.log(typeof pwd)
+      try{
+        const res=await axios.post('http://127.0.0.1:8000/login',{'email':email,'pwd':pwd})
+        console.log(res.data)
+      }catch(err){
+        if(err){
+        setError(error)
+      }
+      else{
+        setError('Something went wrong')
+      }
+      }
     }
   return (
     <div className='bg-[rgba(7,7,7,0.1)] h-screen'>
@@ -18,6 +28,7 @@ function Login() {
           <img src='Logo.png' />
         </div>
       </header>
+      {error && <p className='text-center text-2xl text-red-600'>{error}r</p>}
       <div className='flex flex-col justify-center items-center mt-10'>
         <p className='w-2/5 bg-white text-center pt-2 font-semibold text-2xl underline'>Login</p>
         <form onSubmit={handleSubmit} className="w-2/5 bg-white p-5 space-y-4">
@@ -39,8 +50,8 @@ function Login() {
             onChange={(e)=>setPwd(e.target.value)}
             required/>
           </div>
-
-          <button className="block mx-auto bg-[#554fc9] px-3 py-1 text-white rounded text-xl font-mono cursor-pointer">
+          <NavLink to='/signup' className={'text-[13px] block text-center text-blue-700 underline'}>Don't have an account | Register here</NavLink>
+          <button className="block mx-auto bg-[#3f35fe] px-3 py-1 text-white rounded text-xl font-mono cursor-pointer">
             Submit
           </button>
         </form>

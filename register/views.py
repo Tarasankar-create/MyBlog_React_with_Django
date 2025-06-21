@@ -8,14 +8,31 @@ from .models import User
 def signup(request):
     if request.method=='POST':
         data=request.data
-        print(data)
+        name=data['name']
+        email=data['email']
+        mob=data['mob']
+        gender=data['gender']
+        pwd=data['pwd']
+        print(name)
+        if User.objects.filter(email=email).exists():
+            return Response({'error':'Email already registerd'},status=400)
+        ob=User.objects.create(name=name,email=email,mob=mob,gender=gender,pwd=pwd)
+        ob.save()
         return Response(data,status=200)
 
     return Response(data)
 
-@api_view(['GET'])
+@api_view(['POST'])
 def login(request):
     if request.method=='POST':
-        data=User.objects.all()
-        print(data)
+        data=request.data
+        email=data['email']
+        pwd=data['pwd']
+        try:
+            ob=User.objects.get(email=email,pwd=pwd)
+            username=ob.name
+            return Response({'name':username},status=200)
+        except Exception as e:
+            return Response({'error':str(e)},status=400)
+
         return Response(data)
