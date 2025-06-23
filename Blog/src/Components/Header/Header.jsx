@@ -1,28 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import UserContext from '../useContext/userContext'
+import { useContext } from 'react'
 
 function Header() {
-  const navigate=useNavigate()
-  const login=()=>{
+  const { user } = useContext(UserContext)
+  const navigate = useNavigate()
+  const login = () => {
     console.log('Button clicked')
     navigate('/login')
   }
-  const signup=()=>{
+  const signup = () => {
     console.log('Button clicked')
     navigate('/signup')
   }
   return (
     <div className='flex items-center shadow-lg px-6'>
       <div>
-        <img src='Logo.png' alt='MyBlog' className='w-[150px] h-[40px]' />
+        <img src='Logo.png' alt='MyBlog' className='w-[130px] h-[30px]' />
       </div>
       <div className='flex mx-auto gap-8 text-xl p-3'>
         <li
-          className='list-none cursor-pointer hover:text-blue-700 '
+          className='list-none cursor-pointer hover:text-blue-700'
         ><Link to=''>
-          Home
-        </Link>
+            Home
+          </Link>
         </li>
         <li
           className='list-none cursor-pointer hover:text-blue-700 '
@@ -34,29 +37,29 @@ function Header() {
         <li
           className='list-none cursor-pointer hover:text-blue-700 '
         ><Link to='Features'>
-          Features
-        </Link>
+            Features
+          </Link>
         </li>
         <li
           className='list-none cursor-pointer hover:text-blue-700 '
         ><Link to='About'>
-          About US
-        </Link>
+            About US
+          </Link>
         </li>
       </div>
-      <div className='flex gap-2'>
+      {(!user)? <div><div className='flex gap-2'>
         <button
-        className='bg-blue-600 px-4 py-1 rounded font-sans text-white hover:text-blue-700 cursor-pointer'
-        onClick={login}>
+          className='bg-blue-600 px-4 py-1 rounded font-sans text-white hover:text-blue-700 cursor-pointer'
+          onClick={login}>
           Login
-          </button>
+        </button>
         <button
-        className='bg-blue-600 px-4 py-1 rounded font-sans text-white hover:text-blue-700 cursor-pointer'
-         onClick={signup}>
+          className='bg-blue-600 px-4 py-1 rounded font-sans text-white hover:text-blue-700 cursor-pointer'
+          onClick={signup}>
           SignUp
-          </button>
-       
-      </div>
+        </button></div>
+      </div> :
+      <div>{user}</div>}
     </div>
   )
 }

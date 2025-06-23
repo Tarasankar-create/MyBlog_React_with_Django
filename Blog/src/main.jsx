@@ -10,6 +10,7 @@ import Features from './Components/Features/Feature.jsx'
 import About from './Components/About/About.jsx'
 import Signup from './Components/Register/Signup.jsx'
 import Login from './Components/Register/Login.jsx'
+import UserContextProvider from './Components/useContext/userContextProvider.jsx'
 
 const route=createBrowserRouter(
   createRoutesFromElements(
@@ -28,7 +29,9 @@ const route=createBrowserRouter(
 )
 
 createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <React.StrictMode>  
+    <UserContextProvider>
     <RouterProvider router={route} />
+    </UserContextProvider>
   </React.StrictMode>
 )

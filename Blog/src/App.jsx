@@ -8,14 +8,10 @@ function App() {
     async function Data(){
       const res= await fetch('https://api.slingacademy.com/v1/sample-data/blog-posts')
       const data=await res.json()
-      console.log(data.blogs.length)
-      console.log(data.blogs)
       setValue(data.blogs)
     }
     Data()
   },[])
-  
-
   return (
     <>
     
