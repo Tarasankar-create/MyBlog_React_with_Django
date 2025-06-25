@@ -7,6 +7,7 @@ import { useContext } from 'react'
 function Header() {
   const { user } = useContext(UserContext)
   const navigate = useNavigate()
+  const name = localStorage.getItem('name')
   const login = () => {
     console.log('Button clicked')
     navigate('/login')
@@ -14,6 +15,9 @@ function Header() {
   const signup = () => {
     console.log('Button clicked')
     navigate('/signup')
+  }
+  const logout = () => {
+    localStorage.removeItem('name')
   }
   return (
     <div className='flex items-center shadow-lg px-6'>
@@ -47,7 +51,7 @@ function Header() {
           </Link>
         </li>
       </div>
-      {(!user)? <div><div className='flex gap-2'>
+      {(!name) ? <div><div className='flex gap-2'>
         <button
           className='bg-blue-600 px-4 py-1 rounded font-sans text-white hover:text-blue-700 cursor-pointer'
           onClick={login}>
@@ -59,7 +63,12 @@ function Header() {
           SignUp
         </button></div>
       </div> :
-      <div>{user}</div>}
+        <div>
+          <button onClick={logout}>
+            Settings
+          </button>
+        </div>
+      }
     </div>
   )
 }

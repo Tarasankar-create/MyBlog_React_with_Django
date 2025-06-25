@@ -3,18 +3,20 @@ import { useState } from 'react'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 
+
 function Signup() {
   const [name, setName] = useState()
   const [email, setEmail] = useState()
   const [mob, setMob] = useState()
   const [gender, setGender] = useState()
   const [pwd, setPwd] = useState()
+  const [profile, setProfile] = useState()
   const [error, setError] = useState('')
   const navigate=useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault()
     try{
-      const res = await axios.post("http://127.0.0.1:8000/signup", { 'name': name, 'email': email, 'mob': mob, 'gender': gender, 'pwd': pwd })
+      const res = await axios.post("http://127.0.0.1:8000/signup", { 'name': name, 'email': email, 'mob': mob, 'gender': gender,'pic':profile ,'pwd': pwd })
       if (res.status == 200) {
         navigate('/login')
         setError('')
@@ -77,11 +79,20 @@ function Signup() {
               value={gender}
               onChange={(e) => setGender(e.target.value)}
               required>
-              <option value="">--------</option>
+              <option value="">------</option>
               <option value="M">Male</option>
               <option value="F">Female</option>
               <option value="O">Other</option>
             </select>
+          </div>
+          <div className="flex items-center">
+            <label className="w-24">Profile:</label>
+            <input
+              type="file"
+              className="flex-1 border-2 border-black p-1  rounded cursor-pointer"
+              value={profile}
+              onChange={(e) => setProfile(e.target.value)}
+              required />
           </div>
 
           <div className="flex items-center">

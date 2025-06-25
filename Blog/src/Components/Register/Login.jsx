@@ -18,6 +18,7 @@ function Login() {
       const res = await axios.post('http://127.0.0.1:8000/login', { 'email': email, 'pwd': pwd })
       console.log(res.data['name'])
       setUser(res.data['name'])
+      localStorage.setItem('name',res.data['name'])
       navigate('/')
     } catch (err) {
       if (err) {

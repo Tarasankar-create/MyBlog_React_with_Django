@@ -13,11 +13,11 @@ def signup(request):
         mob=data['mob']
         gender=data['gender']
         pwd=data['pwd']
-        print(name)
-        if User.objects.filter(email=email).exists():
-            return Response({'error':'Email already registerd'},status=400)
-        ob=User.objects.create(name=name,email=email,mob=mob,gender=gender,pwd=pwd)
-        ob.save()
+        print(data)
+        # if User.objects.filter(email=email).exists():
+        #     return Response({'error':'Email already registerd'},status=400)
+        # ob=User.objects.create(name=name,email=email,mob=mob,gender=gender,pwd=pwd)
+        # ob.save()
         return Response(data,status=200)
 
     return Response(data)
