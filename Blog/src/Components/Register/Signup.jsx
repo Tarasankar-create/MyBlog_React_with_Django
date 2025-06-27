@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 function Signup() {
@@ -12,20 +12,31 @@ function Signup() {
   const [pwd, setPwd] = useState()
   const [profile, setProfile] = useState()
   const [error, setError] = useState('')
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault()
-    try{
-      const res = await axios.post("http://127.0.0.1:8000/signup", { 'name': name, 'email': email, 'mob': mob, 'gender': gender,'pic':profile ,'pwd': pwd })
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('email', email)
+    formData.append('mob', mob)
+    formData.append('gender', gender)
+    formData.append('pwd', pwd)
+    formData.append('pic', profile)
+    try {
+      const res = await axios.post("http://127.0.0.1:8000/signup", formData,{
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+      })
       if (res.status == 200) {
         navigate('/login')
         setError('')
       }
     } catch (err) {
-      if(err){
+      if (err) {
         setError(error)
       }
-      else{
+      else {
         setError('Something went wrong')
       }
     }
@@ -90,8 +101,7 @@ function Signup() {
             <input
               type="file"
               className="flex-1 border-2 border-black p-1  rounded cursor-pointer"
-              value={profile}
-              onChange={(e) => setProfile(e.target.value)}
+              onChange={(e) => setProfile(e.target.files[0])}
               required />
           </div>
 

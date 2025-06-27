@@ -8,19 +8,21 @@ from .models import User
 def signup(request):
     if request.method=='POST':
         data=request.data
-        name=data['name']
-        email=data['email']
-        mob=data['mob']
-        gender=data['gender']
-        pwd=data['pwd']
-        print(data)
-        # if User.objects.filter(email=email).exists():
-        #     return Response({'error':'Email already registerd'},status=400)
-        # ob=User.objects.create(name=name,email=email,mob=mob,gender=gender,pwd=pwd)
-        # ob.save()
-        return Response(data,status=200)
+        name=data.get('name')
+        email=data.get('email')
+        mob=data.get('mob')
+        gender=data.get('gender')
+        img=request.FILES.get('pic')
+        pwd=data.get('pwd')
+        if User.objects.filter(email=email).exists():
+            return Response({'error':'Email already registerd'},status=400)
+        try:
+            ob=User.objects.create(name=name,email=email,mob=mob,gender=gender,image=img,pwd=pwd)
+            ob.save()
+            return Response(status=200)
+        except Exception as e:
+            return Response({'error':str(e)},status=500)
 
-    return Response(data)
 
 @api_view(['POST'])
 def login(request):
@@ -30,9 +32,15 @@ def login(request):
         pwd=data['pwd']
         try:
             ob=User.objects.get(email=email,pwd=pwd)
-            username=ob.name
-            return Response({'name':username},status=200)
+            inf={
+                'name':ob.name,
+                'email':ob.email,
+                'mob':ob.mob,
+                'gender':ob.gender,
+                'img':ob.image.url
+            }
+            print(inf)
+            return Response({'inf':inf},status=200)
         except Exception as e:
             return Response({'error':str(e)},status=400)
 
-        return Response(data)

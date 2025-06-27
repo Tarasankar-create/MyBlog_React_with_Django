@@ -11,7 +11,7 @@ class User(models.Model):
     email=models.EmailField(primary_key=True,unique=True)
     mob=models.CharField(max_length=15)
     gender=models.CharField(max_length=5,choices=GENDER_CHOICES)
-    pic=models.FileField(default='')
+    image=models.ImageField(upload_to='Image/',default='Image/free.png')
     pwd=models.CharField(max_length=128)
 
     def __str__(self):

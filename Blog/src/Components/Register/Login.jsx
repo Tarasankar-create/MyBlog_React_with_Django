@@ -16,9 +16,18 @@ function Login() {
     e.preventDefault()
     try {
       const res = await axios.post('http://127.0.0.1:8000/login', { 'email': email, 'pwd': pwd })
-      console.log(res.data['name'])
-      setUser(res.data['name'])
-      localStorage.setItem('name',res.data['name'])
+      console.log(res.data['inf'])
+      for(let i in res.data['inf']){
+        localStorage.setItem(i,`${res.data['inf'][i]}`)
+      }
+      const values={
+        'name':localStorage.getItem('name'),
+        'email':localStorage.getItem('email'),
+        'mob':localStorage.getItem('mob'),
+        'gender':localStorage.getItem('gender'),
+        'img':localStorage.getItem('img'),
+      }
+      setUser(values)
       navigate('/')
     } catch (err) {
       if (err) {
