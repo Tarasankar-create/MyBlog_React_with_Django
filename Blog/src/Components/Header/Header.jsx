@@ -39,14 +39,14 @@ function Header() {
         <li
           className='list-none cursor-pointer hover:text-blue-700 '
         >
-          <Link to='content'>
-            Content
+          <Link to='catagories'>
+            Catagories
           </Link>
         </li>
         <li
           className='list-none cursor-pointer hover:text-blue-700 '
-        ><Link to='Features'>
-            Features
+        ><Link to='contents'>
+           Blogs
           </Link>
         </li>
         {(!user) ? <li
