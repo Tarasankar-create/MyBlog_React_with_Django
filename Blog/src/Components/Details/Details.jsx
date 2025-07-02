@@ -1,10 +1,13 @@
 import React from 'react'
-
+import UserContext from '../useContext/userContext'
+import { useContext } from 'react'
 function Details() {
+    const {tvalue}=useContext(UserContext)
+    console.log(tvalue)
   return (
     <>
     <div className=' border-2 border-amber-300 px-5 my-5 text-black'>
-        <div className='flex border-0 border-black shadow-lg justify-between'>
+        {/* <div className='flex border-0 border-black shadow-lg justify-between'>
           <p className='text-red-700 text-xl'>{v['title'].toUpperCase()}</p>
           <p><span className='text-xl text-red-700'>Updated at : </span> {v['updated_at']}</p>
         </div>
@@ -16,7 +19,7 @@ function Details() {
         <div className='py-3'>
           Description : <p className='underline text-xl text-blue-600'>{v['description'].toUpperCase()}</p>
           <p>{v['content_text']}</p>
-        </div>
+        </div> */}
      </div>
     </>
   )

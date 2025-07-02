@@ -47,7 +47,7 @@ function Header() {
             className={({ isActive }) =>
               isActive ? 'text-orange-600 ' : ''
             }
-            to='catagories'>
+            to='categories'>
             Catagories
           </NavLink>
         </li>
@@ -61,7 +61,7 @@ function Header() {
             Blogs
           </NavLink>
         </li>
-        {(!user) ? <li
+        <li
           className='list-none cursor-pointer hover:text-blue-700 '
         ><NavLink
           className={({ isActive }) =>
@@ -70,14 +70,7 @@ function Header() {
           to='About'>
             About US
           </NavLink>
-        </li> :
-          <li
-            className='list-none cursor-pointer hover:text-blue-700 '
-          ><NavLink to='About'>
-              Profile
-            </NavLink>
-          </li>
-        }
+        </li>
       </div>
       {(!user) ? <div><div className='flex gap-2'>
         <button
