@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import UserContext from '../useContext/userContext'
 import { useContext } from 'react'
 
 function Header() {
-  const { user,setUser } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate()
-  const[open,setOpen]=useState(false)
+  const [open, setOpen] = useState(false)
   const login = () => {
     console.log('Button clicked')
     navigate('/login')
@@ -21,7 +21,7 @@ function Header() {
     setUser('')
     navigate('/')
   }
-  const handleSettings=()=>{
+  const handleSettings = () => {
     setOpen(!open)
   }
   return (
@@ -32,34 +32,50 @@ function Header() {
       <div className='flex mx-auto gap-8 text-xl p-3'>
         <li
           className='list-none cursor-pointer hover:text-blue-700'
-        ><Link to=''>
+        ><NavLink
+          className={({ isActive }) =>
+            isActive ? 'text-orange-600 ' : ''
+          }
+          to=''>
             Home
-          </Link>
+          </NavLink>
         </li>
         <li
           className='list-none cursor-pointer hover:text-blue-700 '
         >
-          <Link to='catagories'>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? 'text-orange-600 ' : ''
+            }
+            to='catagories'>
             Catagories
-          </Link>
+          </NavLink>
         </li>
         <li
           className='list-none cursor-pointer hover:text-blue-700 '
-        ><Link to='contents'>
-           Blogs
-          </Link>
+        ><NavLink
+          className={({ isActive }) =>
+            isActive ? 'text-orange-600 ' : ''
+          }
+          to='contents'>
+            Blogs
+          </NavLink>
         </li>
         {(!user) ? <li
           className='list-none cursor-pointer hover:text-blue-700 '
-        ><Link to='About'>
+        ><NavLink
+          className={({ isActive }) =>
+            isActive ? 'text-orange-600 ' : ''
+          }
+          to='About'>
             About US
-          </Link>
+          </NavLink>
         </li> :
           <li
             className='list-none cursor-pointer hover:text-blue-700 '
-          ><Link to='About'>
+          ><NavLink to='About'>
               Profile
-            </Link>
+            </NavLink>
           </li>
         }
       </div>

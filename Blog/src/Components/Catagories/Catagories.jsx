@@ -1,16 +1,45 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import UserContext from '../useContext/userContext'
 
 function Catagories() {
+    const [category, setCatagory] = useState(null)
+    const {setTvalue}=useContext(UserContext)
+    useEffect(() => {
+        async function catagoriesData() {
+            const res = await fetch('https://api.slingacademy.com/v1/sample-data/blog-posts')
+            const data = await res.json()
+            console.log(data['blogs'])
+            setCatagory(data['blogs'])
+            // console.log(data['blogs'])
+            // for (let i of data['blogs']){
+            //     console.log(i['category'])
+            // }
+        }
+        catagoriesData()
+    }, [])
     return (
         <div>
-            <div className='grid grid-cols-[30%_auto] mt-5 px-10 h-[200px] '>
-                <div className='bg-amber-300 p-3'>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat odit quisquam dolorem reiciendis incidunt magni, facere vel itaque deleniti ullam corrupti ad maxime esse quaerat fugit neque exercitationem consectetur porro.</p>
+            {category ? (category.map((v) => (
+        
+                <div key={v.title} className='flex mt-5 px-10 h-[200px] space-y-5 cursor-pointer'>
+                    <div className='mr-2'>
+                        <img className='object-fill h-[200px] w-[500px]  shadow-lg' src={v.photo_url}/>
+                        
+                    </div>
+                    <div className=' p-3 w-full shadow-lg text-[30px] font-semibold font-serif space-y-2'>
+                        <p className=''>Category: {v.category}</p>
+                        <p>Title: {v.title}</p>
+                    </div>
                 </div>
-                <div className='bg-green-500 p-3'>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit quisquam reiciendis similique voluptates corporis eligendi doloribus, ratione debitis nesciunt natus! Doloremque eaque consequuntur aut illum numquam minima excepturi odio velit.</p>
-                </div>
-            </div>
+            ))) :
+                (<div className='w-full mt-20 mb-112'>
+                    <p className=' text-center text-6xl'>Loading blogs
+                        <span className="text-center text-6xl font-semibold animate-pulse">.</span>
+                        <span className="text-center text-6xl font-semibold animate-pulse">.</span>
+                        <span className="text-center text-6xl font-semibold animate-pulse">.</span>
+                    </p>
+                </div>)
+            }
         </div>
     )
 }

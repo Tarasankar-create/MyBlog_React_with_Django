@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 function UserContextProvider({children}) {
     const[user,setUser]=useState(null)
+    const[tvalue,setTvalue]=useState(null)
     const stored_value=localStorage.getItem('name')
     useEffect(()=>{
       if(stored_value){
@@ -18,7 +19,7 @@ function UserContextProvider({children}) {
       }
     },[stored_value])
   return (
-   <UserContext.Provider value={{user,setUser}}>
+   <UserContext.Provider value={{user,setUser,tvalue,setTvalue}}>
     {children}
    </UserContext.Provider>
   )
