@@ -12,6 +12,7 @@ import Signup from './Components/Register/Signup.jsx'
 import Login from './Components/Register/Login.jsx'
 import UserContextProvider from './Components/useContext/UserContextProvider.jsx'
 import Details from './Components/Details/Details.jsx'
+import Update from './Components/Register/Update.jsx'
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -19,13 +20,13 @@ const route = createBrowserRouter(
       <Route path='/' element={<Layout />}>
         <Route path='' element={<App />} />
         <Route path='categories' element={<Catagories />}/>
-         <Route path='categories/details' element={<Details />} />
+         <Route path='categories/details/:slug' element={<Details />} />
         <Route path='contents' element={<Contents />} />
         <Route path='about' element={<About />} />
-
       </Route>
       <Route path='/signup' element={<Signup />} />
       <Route path='/login' element={<Login />} />
+      <Route path='/update' element={<Update/>}/>
     </>
 
   )

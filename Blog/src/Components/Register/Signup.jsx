@@ -23,11 +23,7 @@ function Signup() {
     formData.append('pwd', pwd)
     formData.append('pic', profile)
     try {
-      const res = await axios.post("http://127.0.0.1:8000/signup", formData,{
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-      })
+      const res = await axios.post("http://127.0.0.1:8000/signup", formData)
       if (res.status == 200) {
         navigate('/login')
         setError('')

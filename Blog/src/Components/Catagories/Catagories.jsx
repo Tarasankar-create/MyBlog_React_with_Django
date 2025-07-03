@@ -15,13 +15,18 @@ function Catagories() {
         }
         catagoriesData()
     }, [])
+    const slug=(text)=>(
+        text.replaceAll(' ','-')
+    )
     const handleSubmit = (value) => {
         for (let i of category) {
            if (i['title']==value){
             setTvalue(i)
            }
         }
-        navigate('details')
+       
+        const Slug=slug(value)
+        navigate(`details/${Slug}`)
     }
     return (
         <div>

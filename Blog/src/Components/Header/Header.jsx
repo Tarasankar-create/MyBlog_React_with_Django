@@ -21,6 +21,9 @@ function Header() {
     setUser('')
     navigate('/')
   }
+  const updateProfile=()=>{
+    navigate('update')
+  }
   const handleSettings = () => {
     setOpen(!open)
   }
@@ -96,7 +99,7 @@ function Header() {
             />
           </div>
           {open && (<div onMouseLeave={handleSettings} className='absolute right-4 bg-white border-black border-1 p-2 text-[12px] font-semibold space-y-1 '>
-            <p className='cursor-pointer hover:text-orange-400' >Update profile</p>
+            <p onClick={updateProfile} className='cursor-pointer hover:text-orange-400' >Update profile</p>
             <hr />
             <p onClick={logout} className='cursor-pointer hover:text-orange-400'>Logout</p>
           </div>)}

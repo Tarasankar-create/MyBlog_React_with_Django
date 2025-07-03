@@ -44,3 +44,6 @@ def login(request):
         except Exception as e:
             return Response({'error':str(e)},status=400)
 
+@api_view(['PUT'])
+def updateUser(request):
+    return
