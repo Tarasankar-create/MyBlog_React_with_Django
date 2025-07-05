@@ -8,7 +8,7 @@ class User(models.Model):
         ('O', 'Other'),
     ]
     name=models.CharField(max_length=20)
-    email=models.EmailField(primary_key=True,unique=True)
+    email=models.EmailField()
     mob=models.CharField(max_length=15)
     gender=models.CharField(max_length=5,choices=GENDER_CHOICES)
     image=models.ImageField(upload_to='Image/',default='Image/free.png')
