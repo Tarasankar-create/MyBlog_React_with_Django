@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import User
+from .Serializers import userSerializer
 
 # Create your views here.
 @api_view(['POST'])
@@ -44,6 +45,17 @@ def login(request):
         except Exception as e:
             return Response({'error':str(e)},status=400)
 
-@api_view(['PUT'])
+@api_view(['PATCH'])
 def updateUser(request):
-    return
+    data=request.data
+    print(data)
+    try:
+        ob=User.objects.get(email=data['email'],pwd=data['pwd'])
+        serializer=userSerializer(ob,data=data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=200)
+    except Exception as e:
+        return Response({'error':str(e)},status=500)
+
+   

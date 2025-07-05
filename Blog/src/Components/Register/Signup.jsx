@@ -23,7 +23,7 @@ function Signup() {
     formData.append('pwd', pwd)
     formData.append('pic', profile)
     try {
-      const res = await axios.post("http://127.0.0.1:8000/signup", formData)
+      const res = await axios.post("http://127.0.0.1:8000/register/signup", formData)
       if (res.status == 200) {
         navigate('/login')
         setError('')

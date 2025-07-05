@@ -24,7 +24,7 @@ function Update() {
             setProfile(user.img)
             console.log(user.img)
         }
-    })
+    },[user])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -35,12 +35,11 @@ function Update() {
         formData.append('gender', gender)
         formData.append('pwd', pwd)
         formData.append('pic', profile)
-        profilePreview && console.log(profilePreview)
         try {
-            const res = await axios.post("http://127.0.0.1:8000/signup", formData)
+            const res = await axios.patch("http://127.0.0.1:8000/register/update", formData)
             if (res.status == 200) {
-                navigate('/login')
                 setError('')
+                navigate('/')
             }
         } catch (err) {
             if (err) {
@@ -89,7 +88,7 @@ function Update() {
                                 className="flex-1 border-2 border-black p-1 rounded"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                required />
+                                />
                         </div>
 
                         <div className="flex items-center">
@@ -99,7 +98,7 @@ function Update() {
                                 className="flex-1 border-2 border-black p-1 rounded"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                required />
+                                readOnly />
                         </div>
 
                         <div className="flex items-center">

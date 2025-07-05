@@ -15,7 +15,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post('http://127.0.0.1:8000/login', { 'email': email, 'pwd': pwd })
+      const res = await axios.post('http://127.0.0.1:8000/register/login', { 'email': email, 'pwd': pwd })
       console.log(res.data['inf'])
       for(let i in res.data['inf']){
         localStorage.setItem(i,`${res.data['inf'][i]}`)
@@ -67,7 +67,7 @@ function Login() {
               onChange={(e) => setPwd(e.target.value)}
               required />
           </div>
-          <NavLink to='/signup' className={'text-[13px] block text-center text-blue-700 underline'}>Don't have an account | Register here</NavLink>
+          <NavLink to='/signup' className={'text-[13px] block text-center text-blue-700 underline hover:text-orange-500'}>Don't have an account | Register here</NavLink>
           <button className="block mx-auto bg-[#3f35fe] px-3 py-1 text-white rounded text-xl font-mono cursor-pointer">
             Submit
           </button>
