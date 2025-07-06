@@ -42,7 +42,6 @@ def login(request):
                 'gender':ob.gender,
                 'image':ob.image.url
             }
-            print(inf)
             return Response({'inf':inf},status=200)
         except Exception as e:
             return Response({'error':str(e)},status=400)
@@ -50,7 +49,6 @@ def login(request):
 @api_view(['PATCH'])
 def updateUser(request):
     data=request.data
-    print(data)
     try:
         ob=User.objects.get(email=data['email'],pwd=data['pwd'])
         serializer=userSerializer(ob,data=data,partial=True)

@@ -13,6 +13,7 @@ import Login from './Components/Register/Login.jsx'
 import UserContextProvider from './Components/useContext/UserContextProvider.jsx'
 import Details from './Components/Details/Details.jsx'
 import Update from './Components/Register/Update.jsx'
+import AddContent from './Components/Contents/AddContent.jsx'
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +28,7 @@ const route = createBrowserRouter(
       <Route path='/signup' element={<Signup />} />
       <Route path='/login' element={<Login />} />
       <Route path='/update' element={<Update/>}/>
+      <Route path='/add_blog' element={<AddContent/>} />
     </>
 
   )

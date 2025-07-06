@@ -66,13 +66,24 @@ function Header() {
         </li>
         <li
           className='list-none cursor-pointer hover:text-blue-700 '
-        ><NavLink
+        >{(!user)?<NavLink
           className={({ isActive }) =>
             isActive ? 'text-orange-600 ' : ''
           }
           to='About'>
             About US
           </NavLink>
+          :
+          (
+            <NavLink
+          className={({ isActive }) =>
+            isActive ? 'text-orange-600 ' : ''
+          }
+          to='Add_blog'>
+            Add Blog
+          </NavLink>
+          )
+}
         </li>
       </div>
       {(!user) ? <div><div className='flex gap-2'>
