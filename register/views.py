@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,parser_classes
 from rest_framework.response import Response
 from .models import User
 from .Serializers import userSerializer
+from rest_framework.parsers import MultiPartParser, FormParser
 
 # Create your views here.
 @api_view(['POST'])
+@parser_classes([MultiPartParser, FormParser])
 def signup(request):
     if request.method=='POST':
         data=request.data
@@ -38,7 +40,7 @@ def login(request):
                 'email':ob.email,
                 'mob':ob.mob,
                 'gender':ob.gender,
-                'img':ob.image.url
+                'image':ob.image.url
             }
             print(inf)
             return Response({'inf':inf},status=200)
@@ -54,7 +56,9 @@ def updateUser(request):
         serializer=userSerializer(ob,data=data,partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(status=200)
+            return Response(serializer.data,status=200)
+        else:
+            return Response(serializer.errors, status=400)
     except Exception as e:
         return Response({'error':str(e)},status=500)
 

@@ -25,7 +25,7 @@ function Login() {
         'email':localStorage.getItem('email'),
         'mob':localStorage.getItem('mob'),
         'gender':localStorage.getItem('gender'),
-        'img':localStorage.getItem('img'),
+        'image':localStorage.getItem('img'),
       }
       setUser(values)
       navigate('/')

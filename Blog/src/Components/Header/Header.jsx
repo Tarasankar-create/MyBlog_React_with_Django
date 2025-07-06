@@ -93,7 +93,7 @@ function Header() {
               Settings<span className='text-[10px] ml-1'>▼</span>
             </button>
             <img
-              src={`http://localhost:8000${user?.img}`}
+              src={`http://localhost:8000${user?.image}`}
               alt="User"
               className="w-8 h-8 rounded-full object-cover"
             />

@@ -21,10 +21,10 @@ function Update() {
             setEmail(user.email)
             setMob(user.mob)
             setGender(user.gender)
-            setProfile(user.img)
-            console.log(user.img)
+            setProfile(user.image)
+            console.log(user.image)
         }
-    },[user])
+    }, [user])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -34,10 +34,15 @@ function Update() {
         formData.append('mob', mob)
         formData.append('gender', gender)
         formData.append('pwd', pwd)
-        formData.append('pic', profile)
+        if (profile instanceof File) {
+            formData.append('image', profile)
+        }
         try {
             const res = await axios.patch("http://127.0.0.1:8000/register/update", formData)
             if (res.status == 200) {
+                for (let i in res.data) {
+                    localStorage.setItem(i, `${res.data[i]}`)
+                }
                 setError('')
                 navigate('/')
             }
@@ -88,7 +93,7 @@ function Update() {
                                 className="flex-1 border-2 border-black p-1 rounded"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                />
+                            />
                         </div>
 
                         <div className="flex items-center">
