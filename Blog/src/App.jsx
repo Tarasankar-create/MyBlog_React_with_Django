@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 function App() {
   const [value,setValue]=useState(null)
+  const[date,setDate]=useState()
   useEffect(()=>{
     async function Data(){
       const res= await fetch('https://api.slingacademy.com/v1/sample-data/blog-posts')
@@ -13,6 +14,12 @@ function App() {
     }
     Data()
   },[])
+  value?.forEach((e)=>{
+   const dt=e['updated_at'].split('T')
+    console.log(dt[0])
+    console.log(dt[1].split('.')[0])
+
+  })
   return (
     <>
     
@@ -20,7 +27,7 @@ function App() {
       <div className=' border-2 border-amber-300 px-5 my-5 text-black'>
         <div className='flex border-0 border-black shadow-lg justify-between'>
           <p className='text-red-700 text-xl'>{v['title'].toUpperCase()}</p>
-          <p><span className='text-xl text-red-700'>Updated at : </span> {v['updated_at']}</p>
+          <p><span className='text-xl text-red-700'>Updated at : </span> {v['updated_at'].split('T')[0]} {v['updated_at'].split('T')[1].split('.')[0]}</p>
         </div>
         <div className='h-[200px] '>
           <img src={v['photo_url']} alt='Loading...' className='w-[250px] h-[180px]'/>

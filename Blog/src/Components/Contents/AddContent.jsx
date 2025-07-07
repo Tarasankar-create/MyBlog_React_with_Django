@@ -22,23 +22,21 @@ function AddContent() {
         formData.append('image', image)
         formData.append('desctitle', desctitle)
         formData.append('description', description)
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}:`, value);
+        try {
+            const res = await axios.post("http://127.0.0.1:8000/add_blog", formData)
+            if (res.status == 200) {
+                console.log(res)
+                // navigate('/login')
+                // setError('')
+            }
+        } catch (err) {
+            if (err) {
+                setError(error)
+            }
+            else {
+                setError('Something went wrong')
+            }
         }
-        // try {
-        //     const res = await axios.post("http://127.0.0.1:8000/register/signup", formData)
-        //     if (res.status == 200) {
-        //         navigate('/login')
-        //         setError('')
-        //     }
-        // } catch (err) {
-        //     if (err) {
-        //         setError(error)
-        //     }
-        //     else {
-        //         setError('Something went wrong')
-        //     }
-        // }
     }
     return (
         <div className='bg-[rgba(152,93,229,0.1)] h-full'>
