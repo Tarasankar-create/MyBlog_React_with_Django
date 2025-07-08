@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from .models import Add_Blog
+from .Serializers import BlogSerializer
 # Create your views here.
 def home(request):
     return HttpResponse('Welcome to MyBlog')
@@ -10,4 +12,26 @@ def home(request):
 def add_blog(request):
     data=request.data
     print(data)
-    return Response(status=200)
+    fdata={
+    'title':data.get('title'),
+    'authorName':data.get('authorName'),
+    'date':data.get('date'),
+    'category':data.get('category'),
+    'image':request.FILES.get('image'),
+    'desctitle':data.get('desctitle'),
+    'description':data.get('description')
+    }
+    if Add_Blog.objects.filter(title=fdata['title']).exists():
+        return Response({'Error':'Title already exist'},status=400)
+    try:
+        serializer=BlogSerializer(data=fdata)
+        if serializer.is_valid():
+            print('Serializer is: ',serializer)
+            serializer.save()
+            return Response(status=201)
+        else:
+            print(serializer.errors)
+            return Response(status=400)
+    except Exception as e:
+        return Response({'error':str(e)},status=500)
+    
