@@ -13,6 +13,7 @@ def add_blog(request):
     data=request.data
     print(data)
     fdata={
+    'email':data.get('email'),
     'title':data.get('title'),
     'authorName':data.get('authorName'),
     'date':data.get('date'),
@@ -35,3 +36,10 @@ def add_blog(request):
     except Exception as e:
         return Response({'error':str(e)},status=500)
     
+@api_view(['GET'])   
+def show_blog(request):
+    data=request.GET.get()
+    print(data)
+    ob=Add_Blog.objects.all()
+    serializer=BlogSerializer(ob,many=True)
+    return Response(serializer.data)

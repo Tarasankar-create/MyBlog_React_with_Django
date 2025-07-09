@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Add_Blog(models.Model):
+    email=models.EmailField(default=None)
     title=models.CharField(max_length=20,primary_key=True)
     authorName=models.CharField(max_length=30)
     date=models.DateTimeField()

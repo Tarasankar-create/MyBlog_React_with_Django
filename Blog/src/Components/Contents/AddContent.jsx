@@ -1,8 +1,13 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+
 function AddContent() {
+    const[email,setEmail]=useState()
+    useEffect(()=>{
+        setEmail(localStorage.getItem('email'))
+    },[localStorage])
     const [title, setTitle] = useState()
     const [authorName, setAuthorName] = useState()
     const [date, setDate] = useState()
@@ -15,6 +20,7 @@ function AddContent() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData()
+        formData.append('email',email)
         formData.append('title', title)
         formData.append('authorName', authorName)
         formData.append('date', date)
