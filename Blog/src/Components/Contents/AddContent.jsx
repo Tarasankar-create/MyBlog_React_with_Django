@@ -32,8 +32,7 @@ function AddContent() {
             const res = await axios.post("http://127.0.0.1:8000/add_blog", formData)
             if (res.status == 201) {
                 console.log(res)
-                navigate('/')
-                
+                navigate('/')   
             }
         } catch (err) {
             if (err) {

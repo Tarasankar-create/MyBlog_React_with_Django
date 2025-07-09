@@ -38,8 +38,12 @@ def add_blog(request):
     
 @api_view(['GET'])   
 def show_blog(request):
-    data=request.GET.get()
-    print(data)
-    ob=Add_Blog.objects.all()
-    serializer=BlogSerializer(ob,many=True)
-    return Response(serializer.data)
+    userEmail=request.GET.get('email')
+    if not userEmail:
+        return Response({'error':'Email required'},status=400)
+    try:
+        ob=Add_Blog.objects.filter(email=userEmail)
+        serializer=BlogSerializer(ob,many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response({'error':str(e)},status=404)
