@@ -47,3 +47,13 @@ def show_blog(request):
         return Response(serializer.data)
     except Exception as e:
         return Response({'error':str(e)},status=404)
+    
+@api_view(['GET'])
+def show_title_data(request):
+    blogtitle=request.GET.get('blogtitle')
+    try:
+        obs=Add_Blog.objects.filter(title=blogtitle)
+        serializer=BlogSerializer(obs,many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response({'error':str(e)},status=404)

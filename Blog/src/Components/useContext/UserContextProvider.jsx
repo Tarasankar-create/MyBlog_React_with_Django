@@ -7,7 +7,6 @@ function UserContextProvider({children}) {
     const[tvalue,setTvalue]=useState(null)
     const stored_value=localStorage.getItem('name')
     useEffect(()=>{
-      
       if(stored_value){
         const values={
         'name':localStorage.getItem('name'),

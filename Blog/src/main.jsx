@@ -14,21 +14,23 @@ import UserContextProvider from './Components/useContext/UserContextProvider.jsx
 import Details from './Components/Details/Details.jsx'
 import Update from './Components/Register/Update.jsx'
 import AddContent from './Components/Contents/AddContent.jsx'
+import EditContents from './Components/Contents/EditContents.jsx'
 
 const route = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path='/' element={<Layout />}>
         <Route path='' element={<App />} />
-        <Route path='categories' element={<Catagories />}/>
-         <Route path='categories/details/:slug' element={<Details />} />
+        <Route path='categories' element={<Catagories />} />
+        <Route path='categories/details/:slug' element={<Details />} />
         <Route path='contents' element={<Contents />} />
+        <Route path='contents/editcontents/:slug' element={<EditContents />} />
         <Route path='about' element={<About />} />
       </Route>
       <Route path='/signup' element={<Signup />} />
       <Route path='/login' element={<Login />} />
-      <Route path='/update' element={<Update/>}/>
-      <Route path='/add_blog' element={<AddContent/>} />
+      <Route path='/update' element={<Update />} />
+      <Route path='/add_blog' element={<AddContent />} />
     </>
 
   )
