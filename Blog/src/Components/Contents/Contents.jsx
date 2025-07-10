@@ -37,7 +37,6 @@ function Contents() {
 
   function editMenu(title){
     setOpen(title)
-    console.log(title)
   }
   function hideMenu(){
     setOpen('')
@@ -53,18 +52,30 @@ function Contents() {
     navigate(`editcontents/${splitTitle}`)
   }
 
+  async function deleteBlog(title){
+        const res = await axios.get('http://127.0.0.1:8000/del_blog', { params: { 'title':title } })
+        if (res.status == 200) {
+          console.log(res.data)
+          setError('')
+          navigate('/')
+        }
+        else {
+          setError(res.error)
+        }
+  }
+
   return (
     <div className='p-5'>
       {error && <p className='text-center text-2xl text-red-600'>{error}</p>}
       {(blog) ? blog.map((v, i) => (
-        <div key={v['title']} className='relative p-6 border-1 border-black mb-5'>
+        <div key={v['title']} className='relative p-6 border-1 border-black mt-5'>
           <div className='flex justify-end'>
           <p onClick={()=>editMenu(v['title'])} className='text-[22px] hover:text-orange-400 cursor-pointer'>︙</p>
           </div>
           <div onMouseLeave={hideMenu} className={`absolute w-[70px] font-semibold right-3 bg-white py-2 px-2 border-1 border-black shadow-lg ${(open==v['title'])?'visible':'hidden'}`}>
             <p onClick={()=>editContent(v['title'])} className='hover:text-orange-400 cursor-pointer'>Edit</p>
             <hr/>
-            <p className='hover:text-orange-400 cursor-pointer'>Delete</p>
+            <p onClick={()=>deleteBlog(v['title'])} className='hover:text-orange-400 cursor-pointer'>Delete</p>
           </div>
         <div  className=' border-2 border-amber-300 px-5 my-5 text-black'>
           <div className='flex border-0 border-black shadow-lg justify-between'>

@@ -11,7 +11,6 @@ def home(request):
 @api_view(['POST'])
 def add_blog(request):
     data=request.data
-    print(data)
     fdata={
     'email':data.get('email'),
     'title':data.get('title'),
@@ -27,7 +26,6 @@ def add_blog(request):
     try:
         serializer=BlogSerializer(data=fdata)
         if serializer.is_valid():
-            print('Serializer is: ',serializer)
             serializer.save()
             return Response(status=201)
         else:
@@ -57,3 +55,13 @@ def show_title_data(request):
         return Response(serializer.data)
     except Exception as e:
         return Response({'error':str(e)},status=404)
+    
+@api_view(['GET'])
+def delete_blog(request):
+    try:
+        deltitle=request.GET.get('title')
+        ob=Add_Blog.objects.get(title=deltitle)
+        ob.delete()
+        return Response({'messsage':'Blog deleted'},status=200)
+    except Exception as e:
+        return Response({'error':str(e)},status=403)

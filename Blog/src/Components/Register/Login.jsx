@@ -11,30 +11,31 @@ function Login() {
   const [pwd, setPwd] = useState()
   const [error, setError] = useState('')
   const { setUser } = useContext(UserContext)
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const res = await axios.post('http://127.0.0.1:8000/register/login', { 'email': email, 'pwd': pwd })
+      console.log(res)
       console.log(res.data['inf'])
-      for(let i in res.data['inf']){
-        localStorage.setItem(i,`${res.data['inf'][i]}`)
+      for (let i in res.data['inf']) {
+        localStorage.setItem(i, `${res.data['inf'][i]}`)
       }
-      const values={
-        'name':localStorage.getItem('name'),
-        'email':localStorage.getItem('email'),
-        'mob':localStorage.getItem('mob'),
-        'gender':localStorage.getItem('gender'),
-        'image':localStorage.getItem('img'),
+      const values = {
+        'name': localStorage.getItem('name'),
+        'email': localStorage.getItem('email'),
+        'mob': localStorage.getItem('mob'),
+        'gender': localStorage.getItem('gender'),
+        'image': localStorage.getItem('img'),
       }
       setUser(values)
       navigate('/')
     } catch (err) {
-      if (err) {
-        setError(error)
-      }
-      else {
-        setError('Something went wrong')
+      if (err.response && err.response.data) {
+        const detail = err.response.data.detail || err.response.data.message || 'Login failed'
+        setError(detail)
+      } else {
+        setError('Something went wrong. Please try again.')
       }
     }
   }
@@ -45,7 +46,7 @@ function Login() {
           <img src='Logo.png' />
         </div>
       </header>
-      {error && <p className='text-center text-2xl text-red-600'>{error}r</p>}
+      {error && <p className='text-center text-2xl text-red-600'>{error}</p>}
       <div className='flex flex-col justify-center items-center mt-10'>
         <p className='w-2/5 bg-white text-center pt-2 font-semibold text-2xl underline'>Login</p>
         <form onSubmit={handleSubmit} className="w-2/5 bg-white p-5 space-y-4">
