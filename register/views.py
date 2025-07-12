@@ -23,7 +23,7 @@ def signup(request):
             Upper=re.search(r'[A-Z]',pwd)
             Lower=re.search(r'[a-z]',pwd)
             sym=re.search(r'[!~@#$%^&*()_+-=/*-+<>:"|;//,]',pwd)
-            if Upper and Lower and sym and len(pwd)>6:
+            if Upper and Lower and sym and len(pwd)>=6:
                 if User.objects.filter(email=email).exists():
                     return Response({'error':'Email already registerd'},status=400)
                 try:
