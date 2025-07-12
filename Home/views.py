@@ -46,13 +46,30 @@ def show_blog(request):
     except Exception as e:
         return Response({'error':str(e)},status=404)
     
+
 @api_view(['GET'])
 def show_title_data(request):
     blogtitle=request.GET.get('blogtitle')
     try:
-        obs=Add_Blog.objects.filter(title=blogtitle)
-        serializer=BlogSerializer(obs,many=True)
+        ob=Add_Blog.objects.filter(title=blogtitle)
+        serializer=BlogSerializer(ob,many=True)
         return Response(serializer.data)
+    except Exception as e:
+        return Response({'error':str(e)},status=404)
+    
+
+@api_view(['PATCH'])
+def update_blog(request):
+    data=request.data
+    print(data)
+    try:
+        ob=Add_Blog.objects.get(email=data['email'],title=data['title'])
+        serializer=BlogSerializer(ob,data=data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=200)
+        else:
+            return Response(serializer.errors, status=400)
     except Exception as e:
         return Response({'error':str(e)},status=404)
     

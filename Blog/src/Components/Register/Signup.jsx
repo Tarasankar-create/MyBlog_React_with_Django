@@ -28,13 +28,11 @@ function Signup() {
         navigate('/login')
         setError('')
       }
+      else{
+        console.log(res)
+      }
     } catch (err) {
-      if (err) {
-        setError(error)
-      }
-      else {
-        setError('Something went wrong')
-      }
+      setError(err?.response?.data?.error || "Something went wrong")
     }
   }
 
@@ -109,6 +107,9 @@ function Signup() {
               value={pwd}
               onChange={(e) => setPwd(e.target.value)}
               required />
+          </div>
+          <div className='p-5 font-semibold'>
+           <p className='text-blue-600'>!  <span className='text-black'>Password must contains Uppercase letters, Lowercase letters, symbols and be at least 6 characters</span></p>
           </div>
 
           <button className="block mx-auto bg-[#554fc9] px-3 py-1 text-white rounded text-xl font-mono cursor-pointer">

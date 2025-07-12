@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import User
 from .Serializers import userSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
+import re
 
 # Create your views here.
 @api_view(['POST'])
@@ -17,14 +18,24 @@ def signup(request):
         gender=data.get('gender')
         img=request.FILES.get('pic')
         pwd=data.get('pwd')
-        if User.objects.filter(email=email).exists():
-            return Response({'error':'Email already registerd'},status=400)
+        error='Password must contain Uppercase,Lowercase and symbols'
         try:
-            ob=User.objects.create(name=name,email=email,mob=mob,gender=gender,image=img,pwd=pwd)
-            ob.save()
-            return Response(status=200)
-        except Exception as e:
-            return Response({'error':str(e)},status=500)
+            Upper=re.search(r'[A-Z]',pwd)
+            Lower=re.search(r'[a-z]',pwd)
+            sym=re.search(r'[!~@#$%^&*()_+-=/*-+<>:"|;//,]',pwd)
+            if Upper and Lower and sym and len(pwd)>6:
+                if User.objects.filter(email=email).exists():
+                    return Response({'error':'Email already registerd'},status=400)
+                try:
+                    ob=User.objects.create(name=name,email=email,mob=mob,gender=gender,image=img,pwd=pwd)
+                    ob.save()
+                    return Response(status=200)
+                except Exception as e:
+                    return Response({'error':str(e)},status=500)
+            else:
+                return render(request,'Register_index.html',{'msg':error})
+        except Exception:
+            return render(request,'Register_index.html',{'msg':error})
 
 
 @api_view(['POST'])
